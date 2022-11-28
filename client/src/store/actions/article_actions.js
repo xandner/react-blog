@@ -21,7 +21,12 @@ export const getArticles=(sort)=>{
               data: data,
             };
             const arts = await axios(config);
-            console.log(arts.data)
+            const prevArts=getState().articles.articles
+            let newArts=[...arts.data]
+            if(prevArts){
+              newArts=[...prevArts,...arts.data]
+            }
+            dispatch(articles.getArticles(newArts))
         } catch (error) {
             throw(error)
         }
